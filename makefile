@@ -1,4 +1,4 @@
-CXX ?= clang++
+CXX = clang++
 
 SRC_PATH = src
 BUILD_PATH = build
