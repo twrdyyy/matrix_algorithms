@@ -1,4 +1,8 @@
 #include "../lib/Matrix.hpp"
+#include <iomanip>
+#include <cstdio>
+#include <iostream>
+#include <ostream>
 
 template<typename T>
 Matrix<T>::Matrix(unsigned _rows, unsigned _cols, const T& _initial) {
@@ -102,11 +106,11 @@ Matrix<T>& Matrix<T>::operator-=(const Matrix<T>& matrix) {
 
 template<typename T>
 Matrix<T> Matrix<T>::transpose() {
-  Matrix result(rows, cols, 0.0);
+  Matrix result(cols, rows, 0.0);
 
   for (unsigned i=0; i<rows; i++) {
     for (unsigned j=0; j<cols; j++) {
-      result(i,j) = this->data[j][i];
+      result(j,i) = this->data[i][j];
     }
   }
 
@@ -184,6 +188,11 @@ const T& Matrix<T>::operator()(const unsigned& row, const unsigned& col) const {
 }
 
 template<typename T>
+std::vector<T> &Matrix<T>::operator()(const unsigned &row) {
+    return this->data[row];
+}
+
+template<typename T>
 unsigned Matrix<T>::get_rows() const {
   return this->rows;
 }
@@ -191,4 +200,39 @@ unsigned Matrix<T>::get_rows() const {
 template<typename T>
 unsigned Matrix<T>::get_cols() const {
   return this->cols;
+}
+
+template<typename T>
+Matrix<T> dot(Matrix<T> A, Matrix<T> B){
+    auto n_rows = A.get_rows();
+    auto n_cols = A.get_cols();
+
+    Matrix<T> resutl (n_rows, n_cols);
+    for(unsigned i = 0; i < n_rows; i++)
+        for(unsigned j = 0; j < n_cols; j++)
+            resutl(i, j) = A(i, j) * B(i ,j);
+    return resutl;
+}
+
+template<typename T>
+T dot_product(std::vector<T> &A, std::vector<T> &B){ 
+    T result = A[0] * B[0];
+    for (unsigned i = 1; i < A.size(); i++)
+        result += A[i] * B[i];
+    return result;
+}
+
+#define PRINT(OUT) \
+    ( \
+        std::cout << std::fixed << std::setprecision(5) << std::setfill(' ') << OUT << " "\
+    )
+
+template<typename T>
+void Matrix<T>::print(){
+    for (auto row : this->data) {
+        std::cout << "| ";
+        for(auto item : row)
+            PRINT(item);
+        std::cout << "|" << std::endl;
+    }
 }

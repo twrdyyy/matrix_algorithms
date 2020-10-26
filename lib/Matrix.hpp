@@ -29,11 +29,15 @@ private:
    Matrix<T> transpose();
    std::vector<T> diag_vec();
 
+   std::vector<T> &operator()(const unsigned &row);
+
    T &operator()(const unsigned &row, const unsigned &col);
    const T &operator()(const unsigned &row, const unsigned &col) const;
 
    unsigned get_rows() const;
    unsigned get_cols() const;
+
+   void print();
 };
 
 #endif
