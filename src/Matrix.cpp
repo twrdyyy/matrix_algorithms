@@ -236,3 +236,5 @@ void Matrix<T>::print(){
         std::cout << "|" << std::endl;
     }
 }
+
+#undef PRINT
