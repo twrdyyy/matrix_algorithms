@@ -1,19 +1,9 @@
 # Matrix Algorithms :rocket:
 
-Create binaries
+Quick start
 ```bash
 make
-```
----
-
-In order to run specific algorithm
-```bash
-./app/{algorithm name}
-```
----
-
-Remove binaries
-```
+./app
 make clean
 ```
----
+
