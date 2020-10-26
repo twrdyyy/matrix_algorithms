@@ -12,7 +12,7 @@ Matrix<T>::Matrix(unsigned _rows, unsigned _cols, const T& _initial) {
 
 template<typename T>
 Matrix<T>::Matrix(const Matrix<T>& matrix) {
-  data = matrix.mat;
+  data = matrix.data;
   rows = matrix.get_rows();
   cols = matrix.get_cols();
 }
@@ -33,8 +33,8 @@ Matrix<T>& Matrix<T>::operator=(const Matrix<T>& matrix) {
     col.resize(new_cols);
   }
 
-  for (auto i=0; i<new_rows; i++) {
-    for (auto j=0; j<new_cols; j++) {
+  for (unsigned i=0; i<new_rows; i++) {
+    for (unsigned j=0; j<new_cols; j++) {
       data[i][j] = matrix(i, j);
     }
   }
@@ -48,9 +48,9 @@ template<typename T>
 Matrix<T> Matrix<T>::operator+(const Matrix<T>& matrix) {
   Matrix result(rows, cols, 0.0);
 
-  for (auto i=0; i<rows; i++) {
-    for (auto j=0; j<cols; j++) {
-      result(i,j) = this->mat[i][j] + matrix(i,j);
+  for (unsigned i=0; i<rows; i++) {
+    for (unsigned j=0; j<cols; j++) {
+      result(i,j) = this->data[i][j] + matrix(i,j);
     }
   }
 
@@ -62,9 +62,9 @@ Matrix<T>& Matrix<T>::operator+=(const Matrix<T>& matrix) {
   auto rows = matrix.get_rows();
   auto cols = matrix.get_cols();
 
-  for (auto i=0; i<rows; i++) {
-    for (auto j=0; j<cols; j++) {
-      this->mat[i][j] += matrix(i,j);
+  for (unsigned i=0; i<rows; i++) {
+    for (unsigned j=0; j<cols; j++) {
+      this->data[i][j] += matrix(i,j);
     }
   }
 
@@ -77,9 +77,9 @@ Matrix<T> Matrix<T>::operator-(const Matrix<T>& matrix) {
   auto cols = matrix.get_cols();
   Matrix result(rows, cols, 0.0);
 
-  for (auto i=0; i<rows; i++) {
-    for (auto j=0; j<cols; j++) {
-      result(i,j) = this->mat[i][j] - matrix(i,j);
+  for (unsigned i=0; i<rows; i++) {
+    for (unsigned j=0; j<cols; j++) {
+      result(i,j) = this->data[i][j] - matrix(i,j);
     }
   }
 
@@ -91,9 +91,9 @@ Matrix<T>& Matrix<T>::operator-=(const Matrix<T>& matrix) {
   auto rows = matrix.get_rows();
   auto cols = matrix.get_cols();
 
-  for (auto i=0; i<rows; i++) {
-    for (auto j=0; j<cols; j++) {
-      this->mat[i][j] -= matrix(i,j);
+  for (unsigned i=0; i<rows; i++) {
+    for (unsigned j=0; j<cols; j++) {
+      this->data[i][j] -= matrix(i,j);
     }
   }
 
@@ -104,9 +104,9 @@ template<typename T>
 Matrix<T> Matrix<T>::transpose() {
   Matrix result(rows, cols, 0.0);
 
-  for (auto i=0; i<rows; i++) {
-    for (auto j=0; j<cols; j++) {
-      result(i,j) = this->mat[j][i];
+  for (unsigned i=0; i<rows; i++) {
+    for (unsigned j=0; j<cols; j++) {
+      result(i,j) = this->data[j][i];
     }
   }
 
@@ -117,9 +117,9 @@ Matrix<T> Matrix<T>::transpose() {
 template<typename T>
 Matrix<T> Matrix<T>::operator+(const T& num) {
   Matrix result(rows, cols, 0.0);
-  for (auto i=0; i<rows; i++) {
-    for (auto j=0; j<cols; j++) {
-      result(i,j) = this->mat[i][j] + num;
+  for (unsigned i=0; i<rows; i++) {
+    for (unsigned j=0; j<cols; j++) {
+      result(i,j) = this->data[i][j] + num;
     }
   }
 
@@ -129,9 +129,9 @@ Matrix<T> Matrix<T>::operator+(const T& num) {
 template<typename T>
 Matrix<T> Matrix<T>::operator-(const T& num) {
   Matrix result(rows, cols, 0.0);
-  for (auto i=0; i<rows; i++) {
-    for (auto j=0; j<cols; j++) {
-      result(i,j) = this->mat[i][j] - num;
+  for (unsigned i=0; i<rows; i++) {
+    for (unsigned j=0; j<cols; j++) {
+      result(i,j) = this->data[i][j] - num;
     }
   }
 
@@ -142,9 +142,9 @@ template<typename T>
 Matrix<T> Matrix<T>::operator*(const T& num) {
   Matrix result(rows, cols, 0.0);
 
-  for (auto i=0; i<rows; i++) {
-    for (auto j=0; j<cols; j++) {
-      result(i,j) = this->mat[i][j] * num;
+  for (unsigned i=0; i<rows; i++) {
+    for (unsigned j=0; j<cols; j++) {
+      result(i,j) = this->data[i][j] * num;
     }
   }
 
@@ -155,9 +155,9 @@ template<typename T>
 Matrix<T> Matrix<T>::operator/(const T& num) {
   Matrix result(rows, cols, 0.0);
 
-  for (auto i=0; i<rows; i++) {
-    for (auto j=0; j<cols; j++) {
-      result(i,j) = this->mat[i][j] / num;
+  for (unsigned i=0; i<rows; i++) {
+    for (unsigned j=0; j<cols; j++) {
+      result(i,j) = this->data[i][j] / num;
     }
   }
 
@@ -167,20 +167,20 @@ Matrix<T> Matrix<T>::operator/(const T& num) {
 template<typename T>
 std::vector<T> Matrix<T>::diag_vec() {
   std::vector<T> result(rows, 0.0);
-  for (auto i=0; i<rows; i++) {
-    result[i] = this->mat[i][i];
+  for (unsigned i=0; i<rows; i++) {
+    result[i] = this->data[i][i];
   }
   return result;
 }
 
 template<typename T>
 T& Matrix<T>::operator()(const unsigned& row, const unsigned& col) {
-  return this->mat[row][col];
+  return this->data[row][col];
 }
 
 template<typename T>
 const T& Matrix<T>::operator()(const unsigned& row, const unsigned& col) const {
-  return this->mat[row][col];
+  return this->data[row][col];
 }
 
 template<typename T>
