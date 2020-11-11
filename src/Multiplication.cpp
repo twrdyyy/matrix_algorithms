@@ -22,3 +22,15 @@ Matrix<T> mul_3a(Matrix<T> A, Matrix<T> B){
             
     return C;
 }
+
+void matrix_mul(){ 
+    Matrix<float> A(1000, 1000, 1.12);
+    Matrix<float> B(1000, 1000, 1.77);
+    auto start = std::chrono::high_resolution_clock::now();
+    Matrix<float> C = mul_3a(A, B); 
+    auto finish = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double> elapsed = finish - start;
+
+    std::cout << elapsed.count() << std::endl;
+}

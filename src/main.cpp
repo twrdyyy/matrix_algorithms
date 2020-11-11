@@ -1,16 +1,18 @@
 #include <iostream>
+#include <chrono>
+#include <iterator>
 
-#include "Multiplication.cpp"
+#include "Gauss.cpp"
 
 int main() {
-    Matrix<float> A(2, 3, 1.0);
-    Matrix<float> B(3, 4, 2.0);
-    Matrix<float> C = mul_3a(A, B); 
-    std::cout << "A" << std::endl;
+
+    std::string file_path = "res/mat.txt";
+
+    Matrix<float> A = load_matrix_from_file<float>(file_path);
     A.print();
-    std::cout << "B" << std::endl;
-    B.print();
-    std::cout << "C" << std::endl;
-    C.print();
+    std::cout << "Gauss elimination with partial pivoting:" << std::endl;
+    A = gauss_collumn_pivot(A);
+    A.print();
+
     return 0;
 }

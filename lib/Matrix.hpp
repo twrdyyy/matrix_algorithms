@@ -1,6 +1,7 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
+#include <string>
 #include <vector>
 
 template <typename T> class Matrix {
@@ -39,5 +40,8 @@ private:
 
    void print();
 };
+
+template <typename T>
+Matrix<T> load_matrix_from_file(std::string);
 
 #endif

@@ -1,4 +1,5 @@
 #include "../lib/Matrix.hpp"
+#include <fstream>
 #include <iomanip>
 #include <cstdio>
 #include <iostream>
@@ -224,7 +225,7 @@ T dot_product(std::vector<T> &A, std::vector<T> &B){
 
 #define PRINT(OUT) \
     ( \
-        std::cout << std::fixed << std::setprecision(5) << std::setfill(' ') << OUT << " "\
+        std::cout << std::fixed << std::setprecision(5) << std::setw(3) << std::setfill(' ') << OUT << " "\
     )
 
 template<typename T>
@@ -238,3 +239,27 @@ void Matrix<T>::print(){
 }
 
 #undef PRINT
+
+/* example file */
+/* 2 3 */ 
+/* 1 2 3 */
+/* 2 3 4 */
+template <typename T>
+Matrix<T> load_matrix_from_file(std::string file_path) {
+    std::ifstream file(file_path);
+    if(file.is_open()) { 
+        int n, m;
+        file >> n >> m;
+        Matrix<T> result(n, m, 0);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                file >> result(i, j);
+            }
+        }
+        file.close();
+        return result;
+    }
+    else std::cout << "Unable to open the file" << std::endl;
+    Matrix<T> Err(1, 1, 0);
+    return Err;
+}
