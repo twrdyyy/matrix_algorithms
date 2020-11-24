@@ -1,7 +1,6 @@
 #include "../lib/Matrix.hpp"
 #include <fstream>
 #include <iomanip>
-#include <cstdio>
 #include <iostream>
 #include <ostream>
 
@@ -23,7 +22,7 @@ Matrix<T>::Matrix(const Matrix<T>& matrix) {
 }
 
 template<typename T>
-Matrix<T>::~Matrix() {}
+Matrix<T>::~Matrix() = default;
 
 template<typename T>
 Matrix<T>& Matrix<T>::operator=(const Matrix<T>& matrix) {
@@ -245,7 +244,7 @@ void Matrix<T>::print(){
 /* 1 2 3 */
 /* 2 3 4 */
 template <typename T>
-Matrix<T> load_matrix_from_file(std::string file_path) {
+Matrix<T> load_matrix_from_file(const std::string& file_path) {
     std::ifstream file(file_path);
     if(file.is_open()) { 
         int n, m;
